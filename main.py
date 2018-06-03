@@ -15,10 +15,10 @@ class ExternalDevice():
         self.state_file = '.{}_state'.format(self.name)
         self.state = self.get_state(verbose=True)
         
-    def pin_on():
+    def pin_on(self):
         GPIO.output(self.pin_num, GPIO.HIGH) # turn device on
         
-    def pin_off():
+    def pin_off(self):
         GPIO.output(self.pin_num, GPIO.LOW) # turn device off
 
     def get_state(self, verbose=True):
