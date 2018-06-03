@@ -15,11 +15,17 @@ class ExternalDevice():
         self.state_file = '.{}_state'.format(self.name)
         self.state = self.get_state(verbose=True)
         
-    def pin_on(self):
-        GPIO.output(self.pin_num, GPIO.HIGH) # turn device on
         
     def pin_off(self):
+        print('running pin off class method and cleaning up.')
         GPIO.output(self.pin_num, GPIO.LOW) # turn device off
+        GPIO.cleanup()
+        
+    def pin_on(self):
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(self.pin_num)
+        GPIO.output(self.pin_num, GPIO.HIGH) # turn device on
+        pin_off()
 
     def get_state(self, verbose=True):
         try:
@@ -46,9 +52,10 @@ class ExternalDevice():
                 
         elif self.get_state() == '1':
             self.state = '1'
+            print('{} already on. State file was set at 1.'.format(self.name).format(self.name))
             self.pin_on()
             time.sleep(duration)
-            print('{} already on. State file was set at 1.'.format(self.name).format(self.name))
+            
             
         else:
             with open(self.state_file, 'w+') as f:
@@ -86,8 +93,8 @@ if __name__ == '__main__':
         pump_args = pump_parser.parse_args()
         pump_duration = pump_args.Duration
         gpio_pin_num = pump_args.GPIO_pin
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(gpio_pin_num, GPIO.OUT)
+        #GPIO.setmode(GPIO.BOARD)
+        #GPIO.setup(gpio_pin_num, GPIO.OUT)
         print('Creating devices...')
         print('About to start pump for {} seconds on GPIO pin number {} (BOARD layout numbering scheme).'.format(pump_duration, gpio_pin_num))
         
