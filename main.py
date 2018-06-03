@@ -10,7 +10,7 @@ class ExternalDevice():
     """
     def __init__(self, name, GPIO_pin_num, max_value):
         self.name = name
-        self.pin_num = GPIO_pin_num
+        self.pin_num = int(GPIO_pin_num)
         self.max_value = max_value
         self.state_file = '.{}_state'.format(self.name)
         self.state = self.get_state(verbose=True)
