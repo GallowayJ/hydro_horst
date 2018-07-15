@@ -22,8 +22,8 @@ class ExternalDevice():
         #GPIO.cleanup()
 
     def pin_on(self):
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.pin_num, GPIO.OUT)
+        #GPIO.setmode(GPIO.BOARD)
+        #GPIO.setup(self.pin_num, GPIO.OUT)
         GPIO.output(self.pin_num, GPIO.HIGH) # turn device on
         #self.pin_off()
 
@@ -100,9 +100,10 @@ if __name__ == '__main__':
 
         water_pump = ExternalDevice('water pump', gpio_pin_num, 600) # max duration is not implemented yet
         water_pump.start_device(pump_duration)
-        water_pump.stop_device()
+
 
         print('Cycle complete, cleaning up.')
+        water_pump.stop_device()
         GPIO.cleanup()
         print('Clean up complete.')
 
