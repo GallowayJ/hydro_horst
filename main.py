@@ -19,7 +19,7 @@ class ExternalDevice():
     def pin_off(self):
         print('running pin off class method and cleaning up.')
         GPIO.output(self.pin_num, GPIO.LOW) # turn device off
-        GPIO.cleanup()
+        #GPIO.cleanup()
 
     def pin_on(self):
         GPIO.setmode(GPIO.BOARD)
