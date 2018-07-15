@@ -23,6 +23,7 @@ class ExternalDevice():
 
     def pin_on(self):
         GPIO.output(self.pin_num, GPIO.HIGH) # turn device on
+        pin_off()
 
     def get_state(self, verbose=True):
         try:
