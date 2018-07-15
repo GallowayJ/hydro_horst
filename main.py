@@ -17,11 +17,13 @@ class ExternalDevice():
 
 
     def pin_off(self):
-        print('running pin_off class method and cleaning up.')
+        print('running pin off class method and cleaning up.')
         GPIO.output(self.pin_num, GPIO.LOW) # turn device off
         GPIO.cleanup()
 
     def pin_on(self):
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(self.pin_num)
         GPIO.output(self.pin_num, GPIO.HIGH) # turn device on
         pin_off()
 
@@ -91,8 +93,8 @@ if __name__ == '__main__':
         pump_args = pump_parser.parse_args()
         pump_duration = pump_args.Duration
         gpio_pin_num = pump_args.GPIO_pin
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(gpio_pin_num, GPIO.OUT)
+        #GPIO.setmode(GPIO.BOARD)
+        #GPIO.setup(gpio_pin_num, GPIO.OUT)
         print('Creating devices...')
         print('About to start pump for {} seconds on GPIO pin number {} (BOARD layout numbering scheme).'.format(pump_duration, gpio_pin_num))
 
